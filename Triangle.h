@@ -4,24 +4,24 @@
 class Triangle
 {
 public:
-	Triangle(Point, Point, Point, const char*); // Основной конструктор
-	Triangle(const char*); // Конструктор пустого треугольника
-	Triangle(const Triangle&); // Конструктор копирования
-	~Triangle(); // Деструктор
-	// Методы доступа
+	Triangle(Point, Point, Point, const char*); // РћСЃРЅРѕРІРЅРѕР№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+	Triangle(const char*); // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїСѓСЃС‚РѕРіРѕ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
+	Triangle(const Triangle&); // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
+	~Triangle(); // Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
+	// РњРµС‚РѕРґС‹ РґРѕСЃС‚СѓРїР°
 	Point Get_v1() const { return v1; }
 	Point Get_v2() const { return v2; }
 	Point Get_v3() const { return v3; }
 	char* GetName() const { return name; }
-	void Show() const; // Показать треугольник
-	void Move(Point); // Переместить треугольник
-	bool operator >(const Triangle&) const; // Сравнение по площади
-	Triangle& operator =(const Triangle&); // Оператор присваивания
-	static int count; // Счетчик объектов
+	void Show() const; // РџРѕРєР°Р·Р°С‚СЊ С‚СЂРµСѓРіРѕР»СЊРЅРёРє
+	void Move(Point); // РџРµСЂРµРјРµСЃС‚РёС‚СЊ С‚СЂРµСѓРіРѕР»СЊРЅРёРє
+	bool operator >(const Triangle&) const; // РЎСЂР°РІРЅРµРЅРёРµ РїРѕ РїР»РѕС‰Р°РґРё
+	Triangle& operator =(const Triangle&); // РћРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
+	static int count; // РЎС‡РµС‚С‡РёРє РѕР±СЉРµРєС‚РѕРІ
 private:
-	char* objID; // Идентификатор объекта
-	char* name; // Название треугольника
-	Point v1, v2, v3; // Вершины
-	double a, b, c; // Длины сторон
+	char* objID; // РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РѕР±СЉРµРєС‚Р°
+	char* name; // РќР°Р·РІР°РЅРёРµ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
+	Point v1, v2, v3; // Р’РµСЂС€РёРЅС‹
+	double a, b, c; // Р”Р»РёРЅС‹ СЃС‚РѕСЂРѕРЅ
 };
 #endif

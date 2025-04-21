@@ -5,86 +5,86 @@
 #include <iomanip>
 #include <cstring>
 using namespace std;
-int Triangle::count = 0; // Инициализация счетчика
-// Основной конструктор
+int Triangle::count = 0; // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃС‡РµС‚С‡РёРєР°
+// РћСЃРЅРѕРІРЅРѕР№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 Triangle::Triangle(Point _v1, Point _v2, Point _v3, const char* ident) : v1(_v1), v2(_v2), v3(_v3)
 {
 	char buf[16];
-	objID = new char[strlen(ident) + 1]; // Выделение памяти для ID
+	objID = new char[strlen(ident) + 1]; // Р’С‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РґР»СЏ ID
 	strcpy(objID, ident);
 	count++;
-	sprintf(buf, "Треугольник %d", count); // Формирование имени
+	sprintf(buf, "РўСЂРµСѓРіРѕР»СЊРЅРёРє %d", count); // Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ РёРјРµРЅРё
 	name = new char[strlen(buf) + 1];
 	strcpy(name, buf);
-	// Вычисление длин сторон
+	// Р’С‹С‡РёСЃР»РµРЅРёРµ РґР»РёРЅ СЃС‚РѕСЂРѕРЅ
 	a = sqrt(pow(v1.x - v2.x, 2) + pow(v1.y - v2.y, 2));
 	b = sqrt(pow(v2.x - v3.x, 2) + pow(v2.y - v3.y, 2));
 	c = sqrt(pow(v1.x - v3.x, 2) + pow(v1.y - v3.y, 2));
 	cout << "Constructor_l for: " << objID << " (" << name << " ) " << endl;
 }
-// Конструктор пустого треугольника
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїСѓСЃС‚РѕРіРѕ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
 Triangle::Triangle(const char* ident)
 {
 	char buf[16];
 	objID = new char[strlen(ident) + 1];
 	strcpy(objID, ident);
 	count++;
-	sprintf(buf, "Треугольник %d", count);
+	sprintf(buf, "РўСЂРµСѓРіРѕР»СЊРЅРёРє %d", count);
 	name = new char[strlen(buf) + 1];
 	strcpy(name, buf);
-	a = b = c = 0; // Нулевые стороны
+	a = b = c = 0; // РќСѓР»РµРІС‹Рµ СЃС‚РѕСЂРѕРЅС‹
 	cout << "Constructor_2 for: " << objID << " (" << name << ")" << endl;
 }
-// Конструктор копирования
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 Triangle::Triangle(const Triangle& tria) : v1(tria.v1), v2(tria.v2), v3(tria.v3)
 {
 	cout << "Copy constructor for: " << tria.objID << endl;
-	objID = new char[strlen(tria.objID) + strlen("(копия)") + 1];
+	objID = new char[strlen(tria.objID) + strlen("(РєРѕРїРёСЏ)") + 1];
 	strcpy(objID, tria.objID);
-	strcat(objID, "(копия)"); // Добавление пометки к ID
+	strcat(objID, "(РєРѕРїРёСЏ)"); // Р”РѕР±Р°РІР»РµРЅРёРµ РїРѕРјРµС‚РєРё Рє ID
 	name = new char[strlen(tria.name) + 1];
 	strcpy(name, tria.name);
-	a = tria.a; b = tria.b; c = tria.c; // Копирование сторон
+	a = tria.a; b = tria.b; c = tria.c; // РљРѕРїРёСЂРѕРІР°РЅРёРµ СЃС‚РѕСЂРѕРЅ
 	count++;
 }
-// Деструктор
+// Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 Triangle::~Triangle()
 {
 	cout << "Destructor for: " << objID << endl;
-	delete[] objID; // Освобождение памяти
+	delete[] objID; // РћСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё
 	delete[] name;
 }
-// Метод отображения треугольника
+// РњРµС‚РѕРґ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
 void Triangle::Show() const
 {
 	cout << name << ":";
-	v1.Show(); v2.Show(); v3.Show(); // Вывод вершин
+	v1.Show(); v2.Show(); v3.Show(); // Р’С‹РІРѕРґ РІРµСЂС€РёРЅ
 	cout << endl;
 }
-// Метод перемещения треугольника
+// РњРµС‚РѕРґ РїРµСЂРµРјРµС‰РµРЅРёСЏ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
 void Triangle::Move(Point dp)
 {
-	v1 += dp; v2 += dp; v3 += dp; // Смещение всех вершин
+	v1 += dp; v2 += dp; v3 += dp; // РЎРјРµС‰РµРЅРёРµ РІСЃРµС… РІРµСЂС€РёРЅ
 }
-// Оператор сравнения > (по площади)
+// РћРїРµСЂР°С‚РѕСЂ СЃСЂР°РІРЅРµРЅРёСЏ > (РїРѕ РїР»РѕС‰Р°РґРё)
 bool Triangle::operator >(const Triangle& tria) const
 {
-	// Вычисление площади текущего треугольника
+	// Р’С‹С‡РёСЃР»РµРЅРёРµ РїР»РѕС‰Р°РґРё С‚РµРєСѓС‰РµРіРѕ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
 	double p = (a + b + c) / 2;
 	double s = sqrt(p * (p - a) * (p - b) * (p - c));
-	// Вычисление площади другого треугольника
+	// Р’С‹С‡РёСЃР»РµРЅРёРµ РїР»РѕС‰Р°РґРё РґСЂСѓРіРѕРіРѕ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
 	double pl = (tria.a + tria.b + tria.c) / 2;
 	double sl = sqrt(pl * (pl - tria.a) * (pl - tria.b) * (pl - tria.c));
-	return s > sl; // Сравнение площадей
+	return s > sl; // РЎСЂР°РІРЅРµРЅРёРµ РїР»РѕС‰Р°РґРµР№
 }
-// Оператор присваивания
+// РћРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
 Triangle& Triangle::operator =(const Triangle& tria)
 {
 	cout << "Assign operator: " << objID << " = " << tria.objID << endl;
-	if (&tria == this) return *this; // Проверка на самоприсваивание
-	delete[] name; // Освобождение старой памяти
-	name = new char[strlen(tria.name) + 1]; // Выделение новой
-	strcpy(name, tria.name); // Копирование имени
-	a = tria.a; b = tria.b; c = tria.c; // Копирование сторон
+	if (&tria == this) return *this; // РџСЂРѕРІРµСЂРєР° РЅР° СЃР°РјРѕРїСЂРёСЃРІР°РёРІР°РЅРёРµ
+	delete[] name; // РћСЃРІРѕР±РѕР¶РґРµРЅРёРµ СЃС‚Р°СЂРѕР№ РїР°РјСЏС‚Рё
+	name = new char[strlen(tria.name) + 1]; // Р’С‹РґРµР»РµРЅРёРµ РЅРѕРІРѕР№
+	strcpy(name, tria.name); // РљРѕРїРёСЂРѕРІР°РЅРёРµ РёРјРµРЅРё
+	a = tria.a; b = tria.b; c = tria.c; // РљРѕРїРёСЂРѕРІР°РЅРёРµ СЃС‚РѕСЂРѕРЅ
 	return *this;
 }
