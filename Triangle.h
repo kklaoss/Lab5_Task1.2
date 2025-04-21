@@ -1,30 +1,27 @@
-// Защита от повторного включения заголовочного файла
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
-// Подключение заголовочного файла класса Point
 #include "Point.h"
-// Класс Triangle для представления треугольника
 class Triangle
 {
 public:
-	Triangle(Point, Point, Point, const char*); // Конструктор с параметрами
-	Triangle(const char*); // Конструктор для создания пустого треугольника
+	Triangle(Point, Point, Point, const char*); // Основной конструктор
+	Triangle(const char*); // Конструктор пустого треугольника
+	Triangle(const Triangle&); // Конструктор копирования
 	~Triangle(); // Деструктор
-	// Методы для получения вершин треугольника
+	// Методы доступа
 	Point Get_v1() const { return v1; }
 	Point Get_v2() const { return v2; }
 	Point Get_v3() const { return v3; }
-	char* GetName() const { return name; } // Метод для получения имени объекта
-	void Show() const; // Метод для отображения информации о треугольнике
-	void Move(Point); // Метод для перемещения треугольника
-public:
-	static int count; // Статическая переменная для подсчета объектов
+	char* GetName() const { return name; }
+	void Show() const; // Показать треугольник
+	void Move(Point); // Переместить треугольник
+	bool operator >(const Triangle&) const; // Сравнение по площади
+	Triangle& operator =(const Triangle&); // Оператор присваивания
+	static int count; // Счетчик объектов
 private:
 	char* objID; // Идентификатор объекта
-	char* name; // Наименование треугольника
-	Point v1, v2, v3; // Вершины треугольника
-	double a; // Длина стороны между v1 и v2
-	double b; // Длина стороны между v2 и v3
-	double c; // Длина стороны между v1 и v3
+	char* name; // Название треугольника
+	Point v1, v2, v3; // Вершины
+	double a, b, c; // Длины сторон
 };
 #endif
