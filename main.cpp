@@ -1,23 +1,20 @@
 // Подключение необходимых заголовочных файлов
 #include <iostream>
 #include "Triangle.h"
-// Использование стандартного пространства имен
 using namespace std;
 // Объявление функций
 int Menu(); // Функция для отображения меню и выбора пункта
-int GetNumber(int, int); // Функция для получения числа в заданном диапазоне
+int GetNumber(int, int); // Функция для получения целого числа в заданном диапазоне
+double GetDouble(); // Функция для получения вещественного числа
 void ExitBack(); // Функция для ожидания нажатия Enter
 void Show(Triangle* [], int); // Функция для отображения всех треугольников
 void Move(Triangle* [], int); // Функция для перемещения треугольников
 void FindMax(Triangle* [], int); // Функция для поиска треугольника с максимальной площадью
 void IsIncluded(Triangle* [], int); // Функция для проверки отношения включения треугольников
-// Инициализация статической переменной count класса Triangle
-int Triangle::count = 0;
 // Главная функция программы
 int main()
 {
-	// Установка локали для поддержки русского языка
-	setlocale(LC_ALL, "ru");
+	setlocale(LC_ALL, "ru"); // Установка локали для поддержки русского языка
 	// Создание точек для вершин треугольников
 	Point p1(0, 0); Point p2(0.5, 1);
 	Point p3(1, 0); Point p4(0, 4.5);
@@ -30,18 +27,14 @@ int main()
 	Triangle triaD(p1, p7, p8, "triaD");
 	// Массив указателей на треугольники
 	Triangle* pTria[] = { &triaA, &triaB, &triaC, &triaD };
-	// Вычисление количества треугольников в массиве
-	int n = sizeof(pTria) / sizeof(pTria[0]);
-	// Флаг для завершения работы программы
-	bool done = false;
-	// Основной цикл программы
+	int n = sizeof(pTria) / sizeof(pTria[0]); // Вычисление количества треугольников
+	bool done = false; // Флаг для завершения работы программы
 	while (!done)
 	{
-		// Выбор действия на основе выбранного пункта меню
-		switch (Menu())
+		switch (Menu()) // Обработка выбранного пункта меню
 		{
 		case 1: Show(pTria, n); break; // Показать все треугольники
-		case 2: Move(pTria, n); break; // Переместить треугольники
+		case 2: Move(pTria, n); break; // Переместить треугольник
 		case 3: FindMax(pTria, n); break; // Найти максимальный треугольник
 		case 4: IsIncluded(pTria, n); break; // Проверить отношение включения
 		case 5: cout << "Конец работы." << endl; done = true; break; // Выход из программы
@@ -58,59 +51,79 @@ int Menu()
 	cout << "\t\t 5 - выход" << endl;
 	return GetNumber(1, 5); // Получить номер выбранного пункта
 }
-// Функция для получения числа в заданном диапазоне
+// Функция для получения целого числа в заданном диапазоне
 int GetNumber(int min, int max)
 {
 	int number = min - 1;
 	while (true)
 	{
-		std::cin >> number;
-		// Проверка на корректность ввода
-		if ((number >= min) && (number <= max) && (std::cin.peek() == '\n'))
-		{
+		cin >> number;
+		if ((number >= min) && (number <= max) && (cin.peek() == '\n'))
 			break;
-		}
 		else
 		{
-			cout << "Повторите ввод (ожидается число от " << min
-				<< " до " << max << " ) : " << endl;
-			std::cin.clear(); // Сброс флагов ошибок
-			while (std::cin.get() != '\n') {}; // Очистка буфера ввода
+			cout << "Повторите ввод (ожидается число от " << min << " до " << max << " ) : " << endl;
+			cin.clear(); // Сброс флагов ошибок
+			while (cin.get() != '\n') {}; // Очистка буфера ввода
 		}
 	}
 	return number;
+}
+// Функция для получения вещественного числа
+double GetDouble() {
+	double value;
+	while (true) {
+		cin >> value;
+		if (cin.peek() == '\n') break;
+		else {
+			cout << "Повторите ввод (ожидается вещественное число):" << endl;
+			cin.clear();
+			while (cin.get() != '\n') {}
+		}
+	}
+	return value;
 }
 // Функция для ожидания нажатия Enter
 void ExitBack()
 {
 	cout << "Нажмите Enter." << endl;
-	cin.get(); cin.get(); // Ожидание ввода
+	cin.get(); cin.get();
 }
 // Функция для отображения всех треугольников
 void Show(Triangle* p_tria[], int k)
 {
 	cout << "======= Перечень треугольников ========" << endl;
-	// Вывод информации о каждом треугольнике
-	for (int i = 0; i < k; ++i) p_tria[i]->Show();
-	for (int i = 0; i < k; ++i) p_tria[i]->ShowSideAndArea();
+	for (int i = 0; i < k; ++i) p_tria[i]->Show(); // Вывод информации о каждом треугольнике
 	ExitBack(); // Ожидание нажатия Enter
 }
-// Функция для перемещения треугольников
+// Функция для перемещения треугольника
 void Move(Triangle* p_tria[], int k)
 {
-	cout << "============= Перемещение =============" << endl;
-	// здесь будет код функции...
+	cout << "============== Перемещение ==========" << endl;
+	cout << "Введите номер треугольника (от 1 до " << k << "): ";
+	int i = GetNumber(1, k) - 1; // Получение индекса треугольника
+	p_tria[i]->Show(); // Отображение текущего положения треугольника
+
+	Point dp; // Смещение
+	cout << "Введите смещение по x: ";
+	dp.x = GetDouble(); // Получение смещения по x
+	cout << "Введите смещение по y: ";
+	dp.y = GetDouble(); // Получение смещения по y
+
+	p_tria[i]->Move(dp); // Применение смещения
+	cout << "Новое положение треугольника:" << endl;
+	p_tria[i]->Show(); // Отображение нового положения
 	ExitBack(); // Ожидание нажатия Enter
 }
 // Функция для поиска треугольника с максимальной площадью
-void FindMax(Triangle* p_tria[], int k) {
+void FindMax(Triangle* p_tria[], int k)
+{
 	cout << "=== Поиск максимального треугольника ==" << endl;
-	// здесь будет код функции...
 	ExitBack(); // Ожидание нажатия Enter
 }
 // Функция для проверки отношения включения треугольников
-void IsIncluded(Triangle* p_tria[], int k) {
+void IsIncluded(Triangle* p_tria[], int k)
+{
 	cout << "======== Отношение включения ==========" << endl;
-	// здесь будет код функции...
 	ExitBack(); // Ожидание нажатия Enter
 }

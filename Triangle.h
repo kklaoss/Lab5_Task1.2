@@ -7,22 +7,16 @@
 class Triangle
 {
 public:
-	// Конструктор с параметрами
-	Triangle(Point, Point, Point, const char*);
-	// Конструктор для создания пустого треугольника
-	Triangle(const char*);
-	// Деструктор
-	~Triangle();
+	Triangle(Point, Point, Point, const char*); // Конструктор с параметрами
+	Triangle(const char*); // Конструктор для создания пустого треугольника
+	~Triangle(); // Деструктор
 	// Методы для получения вершин треугольника
 	Point Get_v1() const { return v1; }
 	Point Get_v2() const { return v2; }
 	Point Get_v3() const { return v3; }
-	// Метод для получения имени объекта
-	char* GetName() const { return name; }
-	// Метод для отображения информации о треугольнике
-	void Show() const;
-	// Метод для отображения сторон и площади треугольника
-	void ShowSideAndArea() const;
+	char* GetName() const { return name; } // Метод для получения имени объекта
+	void Show() const; // Метод для отображения информации о треугольнике
+	void Move(Point); // Метод для перемещения треугольника
 public:
 	static int count; // Статическая переменная для подсчета объектов
 private:
