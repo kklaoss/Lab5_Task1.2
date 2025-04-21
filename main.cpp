@@ -127,9 +127,20 @@ void FindMax(Triangle* p_tria[], int k)
 	cout << "Максимальный треугольник: " << triaMax.GetName() << endl;
 	ExitBack();
 }
-// Функция проверки включения треугольников (заглушка)
+// Функция проверки включения треугольников
 void IsIncluded(Triangle* p_tria[], int k)
 {
-	cout << "======== Отношение включения ==========" << endl;
+	cout << "============== Отношение включения ==========" << endl;
+	cout << "Введите номер 1-го треугольника (от 1 до " << k << "): ";
+	int i1 = GetNumber(1, k) - 1;
+	cout << "Введите номер 2-го треугольника (от 1 до " << k << "): ";
+	int i2 = GetNumber(1, k) - 1;
+	// Проверка включения одного треугольника в другой
+	if (TrialnTria(*p_tria[i1], *p_tria[i2]))
+		cout << p_tria[i1]->GetName() << " - входит в - "
+		<< p_tria[i2]->GetName() << endl;
+	else
+		cout << p_tria[i1]->GetName() << " - не входит в - "
+		<< p_tria[i2]->GetName() << endl;
 	ExitBack();
 }

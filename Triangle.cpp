@@ -69,7 +69,7 @@ void Triangle::Move(Point dp)
 // Оператор сравнения > (по площади)
 bool Triangle::operator >(const Triangle& tria) const
 {
-	// Вычисление площади текущего треугольника
+	// Вычисление площади текущего треугольника (формула Герона)
 	double p = (a + b + c) / 2;
 	double s = sqrt(p * (p - a) * (p - b) * (p - c));
 	// Вычисление площади другого треугольника
@@ -87,4 +87,15 @@ Triangle& Triangle::operator =(const Triangle& tria)
 	strcpy(name, tria.name); // Копирование имени
 	a = tria.a; b = tria.b; c = tria.c; // Копирование сторон
 	return *this;
+}
+// Функция проверки включения одного треугольника в другой
+bool TrialnTria(Triangle trial, Triangle tria2)
+{
+	// Проверка принадлежности всех вершин первого треугольника второму
+	Point v1 = trial.Get_v1();
+	Point v2 = trial.Get_v2();
+	Point v3 = trial.Get_v3();
+	return (v1.InTriangle(tria2) &&
+		v2.InTriangle(tria2) &&
+		v3.InTriangle(tria2));
 }
